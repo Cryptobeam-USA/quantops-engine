@@ -1,0 +1,67 @@
+{
+  "initial_capital": 100000.0,
+  "cycle_interval": 1.0,
+  "stop_on_error": false,
+  "symbols": [
+    "BTC/USDT",
+    "ETH/USDT",
+    "SOL/USDT"
+  ],
+  "exchanges": {
+    "binance": {
+      "enableRateLimit": true,
+      "options": {
+        "defaultType": "spot"
+      }
+    }
+  },
+  "strategies": [
+    {
+      "name": "momentum_btc",
+      "type": "momentum",
+      "symbols": ["BTC/USDT"],
+      "rsi_period": 14,
+      "rsi_oversold": 30,
+      "rsi_overbought": 70,
+      "position_size": 0.1
+    }
+  ],
+  "agent_swarm": {
+    "enabled": true,
+    "consensus_threshold": 0.6,
+    "agents": [
+      {
+        "name": "trend_agent",
+        "type": "neural",
+        "weight": 1.2,
+        "input_dim": 10
+      },
+      {
+        "name": "momentum_agent",
+        "type": "neural",
+        "weight": 1.0,
+        "input_dim": 10
+      },
+      {
+        "name": "volatility_agent",
+        "type": "neural",
+        "weight": 0.8,
+        "input_dim": 10
+      },
+      {
+        "name": "volume_agent",
+        "type": "rule_based",
+        "weight": 0.7
+      }
+    ]
+  },
+  "risk_management": {
+    "max_position_size": 0.1,
+    "max_drawdown": 0.2,
+    "stop_loss": 0.05
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  }
+}
