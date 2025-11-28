@@ -1,3 +1,4 @@
+require('dotenv').config();
 const service = {
   name: 'QuantOps Engine',
   repo: 'quantops-engine',

@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install
+        run: |
+          if [ -f package.json ]; then npm install; else echo "no package.json"; fi
+      - name: Lint
+        run: |
+          if [ -f package.json ]; then npm run lint --if-present; fi
+      - name: Test
+        run: |
+          if [ -f package.json ]; then npm run test --if-present; fi
+      - name: Build
+        run: |
+          if [ -f package.json ]; then npm run build --if-present; fi

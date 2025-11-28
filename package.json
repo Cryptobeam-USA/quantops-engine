@@ -1,0 +1,17 @@
+{
+  "name": "quantops-engine",
+  "version": "0.3.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "src/index.js",
+  "description": "QuantOps Engine",
+  "scripts": {
+    "dev": "node src/index.js",
+    "lint": "node --check src/index.js",
+    "test": "node src/index.js",
+    "build": "echo 'no build step yet'"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
