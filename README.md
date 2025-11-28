@@ -2,20 +2,18 @@
 
 Backtesting, live trading hooks, and risk controls.
 
-Stack: Node.js (CJS), minimal workflow runner.
+Stack: Node.js + Fastify (Node 20).
 
-## Scope
-- Interfaces: HTTP/GraphQL/gRPC placeholders
-- Domains: auth, telemetry, observability hooks
-- Artifacts: sample workflow runner in src/index.js
+## Endpoints
+- GET /health -> service heartbeat
+- POST /plan -> returns workflow draft for a given useCase
 
 ## Quick start
 - npm install
-- npm run dev (runs src/index.js)
-- npm run test (sanity)
+- npm run dev
+- curl http://localhost:3000/health
 
 ## Layout
-- src/index.js: orchestrator + health probe + planWorkflow
+- src/index.js: Fastify server + health + planWorkflow
 - .env.example: PORT/LOG_LEVEL/ENDPOINT placeholders
-- .devcontainer/: Node 20
 - .github/workflows/ci.yml: lint/test/build

@@ -1,4 +1,6 @@
 require('dotenv').config();
+const fastify = require('fastify')({ logger: process.env.LOG_LEVEL || false });
+
 const service = {
   name: 'QuantOps Engine',
   repo: 'quantops-engine',
@@ -28,9 +30,22 @@ function planWorkflow(input) {
   };
 }
 
-module.exports = { service, health, planWorkflow };
+fastify.get('/health', async () => health());
+fastify.post('/plan', async (request) => planWorkflow(request.body || {}));
 
 if (require.main === module) {
-  console.log('[health]', health());
-  console.log('[plan]', planWorkflow({ useCase: 'sandbox' }));
+  if (process.argv.includes('--self-test')) {
+    console.log('[health]', health());
+    console.log('[plan]', planWorkflow({ useCase: 'sandbox' }));
+    process.exit(0);
+  }
+  const port = process.env.PORT || 3000;
+  fastify.listen({ port, host: '0.0.0.0' }).then(() => {
+    console.log(`Service ${service.name} listening on ${port}`);
+  }).catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
 }
+
+module.exports = { service, health, planWorkflow };
