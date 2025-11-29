@@ -34,4 +34,4 @@ Integration guidelines:
 
 Style:
 - Prefer small, focused changes with explicit filenames/paths.
-- Keep this repo focused on quant orchestration and API surface, not everything-trading crammed into one service.
+- Keep this repo focused on quant orchestration and API surface, not “do everything” trading logic.
